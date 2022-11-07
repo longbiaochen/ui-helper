@@ -19,8 +19,10 @@ int main(int argc, const char * argv[]) {
     }
     
     const char* instruction = argv[1];
-    const int code = atoi(argv[2]);
+    int code = atoi(argv[2]);
     // printf("%s to %d\n", instruction, code);
+    //    int screen_id = NSScreen.screens.count == 1 ? 0 : NSScreen.screens.count - 1;
+    int screen_id = NSScreen.screens.count == 1 ? 0 : 1;
     // DOCK
     if(strcmp("dock", instruction)==0){
         // get dock app
@@ -53,10 +55,9 @@ int main(int argc, const char * argv[]) {
         // get screen size and pos
         AXValueRef posRef, sizeRef;
         // get screen bounds
-        int screen_id = NSScreen.screens.count == 1 ? 0 : 1;
-        if(code == 1){
+        if(code < NSScreen.screens.count){
             // internal screen: primary
-            NSScreen *screen = NSScreen.screens[0];
+            NSScreen *screen = NSScreen.screens[code];
             // get screen size and pos
             CGRect bounds = CGDisplayBounds([[screen deviceDescription][@"NSScreenNumber"] unsignedIntValue]);
             posRef = AXValueCreate(kAXValueCGPointType, &bounds.origin);
@@ -73,14 +74,11 @@ int main(int argc, const char * argv[]) {
             AXValueGetValue(sizeRef, kAXValueCGSizeType, &size);
             // calculate new size and pos
             switch (code) {
-                case 0:
-                    // full screen
-                    break;
-                case 2:
+                case 3:
                     // split on the left
                     size.width *= LEFT_RATIO;
                     break;
-                case 3:
+                case 4:
                     // split on the right
                     pos.x += size.width * LEFT_RATIO;
                     size.width *= (1 - LEFT_RATIO);
@@ -106,11 +104,10 @@ int main(int argc, const char * argv[]) {
     // MOUSE
     if(strcmp("mouse", instruction)==0){
         // get screen bounds
-        if(NSScreen.screens.count == 1){
-            return 0;
+        if(code >= NSScreen.screens.count){
+            code = 1;
         }
-        int screen_id = (code == 1) ? 0 : 1;
-        NSScreen *screen = NSScreen.screens[screen_id];
+        NSScreen *screen = NSScreen.screens[code];
         CGRect bounds = CGDisplayBounds([[screen deviceDescription][@"NSScreenNumber"] unsignedIntValue]);
         // determine screen center
         CGPoint pos = { .x =  bounds.origin.x + bounds.size.width/2,

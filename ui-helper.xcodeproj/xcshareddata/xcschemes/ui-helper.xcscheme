@@ -61,7 +61,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "screen"
+            argument = "mouse"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
