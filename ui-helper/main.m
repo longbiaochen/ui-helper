@@ -22,7 +22,6 @@ int main(int argc, const char * argv[]) {
     int code = atoi(argv[2]);
     // printf("%s to %d\n", instruction, code);
     //    int screen_id = NSScreen.screens.count == 1 ? 0 : NSScreen.screens.count - 1;
-    int screen_id = NSScreen.screens.count == 1 ? 0 : 1;
     // DOCK
     if(strcmp("dock", instruction)==0){
         // get dock app
@@ -64,7 +63,8 @@ int main(int argc, const char * argv[]) {
             sizeRef = AXValueCreate(kAXValueCGSizeType, &bounds.size);
         } else {
             // external screen: second
-            NSScreen *screen = NSScreen.screens[screen_id];
+//            int screen_id = NSScreen.screens.count == 1 ? 0 : 1;
+            NSScreen *screen = NSScreen.screens[NSScreen.screens.count - 1];
             CGRect bounds = CGDisplayBounds([[screen deviceDescription][@"NSScreenNumber"] unsignedIntValue]);
             posRef = AXValueCreate(kAXValueCGPointType, &bounds.origin);
             sizeRef = AXValueCreate(kAXValueCGSizeType, &bounds.size);
