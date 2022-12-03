@@ -105,7 +105,7 @@ int main(int argc, const char * argv[]) {
     if(strcmp("mouse", instruction)==0){
         // get screen bounds
         if(code >= NSScreen.screens.count){
-            code = 1;
+            code = NSScreen.screens.count - 1;
         }
         NSScreen *screen = NSScreen.screens[code];
         CGRect bounds = CGDisplayBounds([[screen deviceDescription][@"NSScreenNumber"] unsignedIntValue]);
