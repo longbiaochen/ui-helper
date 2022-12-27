@@ -51,7 +51,6 @@ int main(int argc, const char * argv[]) {
     }
     // SCREEN
     if(strcmp("screen", instruction)==0){
-        // get screen size and pos
         AXValueRef posRef, sizeRef;
         // get screen bounds
         if(code < NSScreen.screens.count){
@@ -63,8 +62,8 @@ int main(int argc, const char * argv[]) {
             sizeRef = AXValueCreate(kAXValueCGSizeType, &bounds.size);
         } else {
             // external screen: second
-//            int screen_id = NSScreen.screens.count == 1 ? 0 : 1;
-            NSScreen *screen = NSScreen.screens[NSScreen.screens.count - 1];
+            int screen_id = NSScreen.screens.count == 1 ? 0 : 1;
+            NSScreen *screen = NSScreen.screens[screen_id];
             CGRect bounds = CGDisplayBounds([[screen deviceDescription][@"NSScreenNumber"] unsignedIntValue]);
             posRef = AXValueCreate(kAXValueCGPointType, &bounds.origin);
             sizeRef = AXValueCreate(kAXValueCGSizeType, &bounds.size);
@@ -105,7 +104,7 @@ int main(int argc, const char * argv[]) {
     if(strcmp("mouse", instruction)==0){
         // get screen bounds
         if(code >= NSScreen.screens.count){
-            code = NSScreen.screens.count - 1;
+            code = 1;
         }
         NSScreen *screen = NSScreen.screens[code];
         CGRect bounds = CGDisplayBounds([[screen deviceDescription][@"NSScreenNumber"] unsignedIntValue]);

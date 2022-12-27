@@ -92,7 +92,7 @@
 		8D175C6F22ACD264001F0476 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1410;
+				LastUpgradeCheck = 1420;
 				ORGANIZATIONNAME = "LONGBIAO CHEN";
 				TargetAttributes = {
 					8D175C7622ACD264001F0476 = {
@@ -250,6 +250,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "ui-helper/ui-helper.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = HJG65XBC25;
@@ -265,6 +266,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "ui-helper/ui-helper.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = HJG65XBC25;
